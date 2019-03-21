@@ -10,6 +10,7 @@ void init(void)
    glShadeModel (GL_SMOOTH);
    glEnable(GL_LIGHTING);
    glEnable(GL_LIGHT0);
+   glEnable(GL_LIGHT1);
    glEnable(GL_DEPTH_TEST);
 }
 
@@ -20,7 +21,8 @@ void init(void)
  */
 void display(void)
 {
-   GLfloat position[] = { 0.0, 0.0, 1.5, 1.0 };
+   GLfloat position1[] = { 0.0, 0.0, 1.5, 1.0 };
+   GLfloat position2[] = { 0.0, 0.0, 1.5, 1.0 };
 
    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    glPushMatrix ();
@@ -28,7 +30,7 @@ void display(void)
 
    glPushMatrix ();
    glRotated ((GLdouble) spin, 1.0, 0.0, 0.0);
-   glLightfv (GL_LIGHT0, GL_POSITION, position);
+   glLightfv (GL_LIGHT0, GL_POSITION, position1);
 
    glTranslated (0.0, 0.0, 1.5);
    glDisable (GL_LIGHTING);
@@ -36,6 +38,18 @@ void display(void)
    glutWireCube (0.1);
    glEnable (GL_LIGHTING);
    glPopMatrix ();
+
+   glPushMatrix ();
+   glRotated ((GLdouble) spin, 0.0, 1.0, 0.0);
+   glLightfv (GL_LIGHT1, GL_POSITION, position2);
+
+   glTranslated (0.0, 0.0, 1.5);
+   glDisable (GL_LIGHTING);
+   glColor3f (0.0, 1.0, 1.0);
+   glutWireCube (0.1);
+   glEnable (GL_LIGHTING);
+   glPopMatrix ();
+
 
    glutSolidTorus (0.275, 0.85, 8, 15);
    glPopMatrix ();
