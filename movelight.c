@@ -23,6 +23,7 @@ void display(void)
 {
    GLfloat position1[] = { 0.0, 0.0, 1.5, 1.0 };
    GLfloat position2[] = { 0.0, 0.0, 1.5, 1.0 };
+   GLfloat on[] = { 1.0, 1.0, 1.0, 1.0 };
 
    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    glPushMatrix ();
@@ -33,15 +34,18 @@ void display(void)
    glLightfv (GL_LIGHT0, GL_POSITION, position1);
 
    glTranslated (0.0, 0.0, 1.5);
-   glDisable (GL_LIGHTING);
+//   glDisable (GL_LIGHTING);
    glColor3f (0.0, 1.0, 1.0);
-   glutWireCube (0.1);
-   glEnable (GL_LIGHTING);
+//   glutWireCube (0.1);
+   glutSolidSphere(.1,20,16);
+//   glEnable (GL_LIGHTING);
    glPopMatrix ();
 
    glPushMatrix ();
    glRotated ((GLdouble) spin, 0.0, 1.0, 0.0);
    glLightfv (GL_LIGHT1, GL_POSITION, position2);
+   glLightfv (GL_LIGHT1, GL_SPECULAR, on);
+   glLightfv (GL_LIGHT1, GL_DIFFUSE, on);
 
    glTranslated (0.0, 0.0, 1.5);
    glDisable (GL_LIGHTING);
@@ -71,7 +75,7 @@ void mouse(int button, int state, int x, int y)
    switch (button) {
       case GLUT_LEFT_BUTTON:
          if (state == GLUT_DOWN) {
-            spin = (spin + 10) % 360;
+            spin = (spin + 5) % 360;
             glutPostRedisplay();
          }
          break;
