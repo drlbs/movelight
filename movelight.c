@@ -24,6 +24,8 @@ void display(void)
    GLfloat position1[] = { 0.0, 0.0, 1.5, 1.0 };
    GLfloat position2[] = { 0.0, 0.0, 1.5, 1.0 };
    GLfloat on[] = { 1.0, 1.0, 1.0, 1.0 };
+   GLfloat emission_on[] = { 0.5, 0.5, 0.5, 1.0};
+   GLfloat emission_off[] = { 0.0, 0.0, 0.0, 1.0};
 
    glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
    glPushMatrix ();
@@ -37,7 +39,9 @@ void display(void)
 //   glDisable (GL_LIGHTING);
    glColor3f (0.0, 1.0, 1.0);
 //   glutWireCube (0.1);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emission_on);
    glutSolidSphere(.1,20,16);
+   glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emission_off);
 //   glEnable (GL_LIGHTING);
    glPopMatrix ();
 
@@ -55,7 +59,10 @@ void display(void)
    glPopMatrix ();
 
 
-   glutSolidTorus (0.275, 0.85, 8, 15);
+//   glutSolidTorus (0.275, 0.85, 8, 15);
+   float offset[3] = {0.0,0.0,0.0};
+   
+   glutSolidSierpinskiSponge (5, offset, 1.0);
    glPopMatrix ();
    glFlush ();
 }
